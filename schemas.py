@@ -27,7 +27,7 @@ class Item(ItemBase):
     user_id: int | None = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 ### User Models ###
 
@@ -57,4 +57,4 @@ class User(UserBase):
     items: list[Item] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True
