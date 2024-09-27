@@ -1,17 +1,26 @@
 '''Utility classes'''
 
 from sqlalchemy.orm import Session
-import models
-import schemas
-
+from . import models, schemas
 
 class Crud:
     def get_one(db: Session, model: models, id: int):
         '''Gets and returns one data item from database for the passed model and id'''
 
-        return db.query(model).filter(model.id == id)
+        data = db.query(model).filter(model.id == id).first()
+        return data
 
     def get_all(db: Session, model: models):
         '''Gets and returns all data from database for the passed model'''
 
-        return db.query(model).all()
+        data = db.query(model).all()
+        return data
+
+    def create_one(db: Session, model: models, data: schemas, user_id: int):
+        '''Creates a database entry from passed data'''
+
+        item = model(**data.dict())
+        db.add(item)
+        db.commit()
+        db.refresh(item)
+        return item
