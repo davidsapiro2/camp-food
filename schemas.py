@@ -23,8 +23,8 @@ class ItemBase(BaseModel):
     }
 
 class Item(ItemBase):
-    id: int
-    user_id: int
+    id: int | None = None
+    user_id: int | None = None
 
     class Config:
         orm_mode = True
